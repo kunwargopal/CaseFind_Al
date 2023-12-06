@@ -18,7 +18,7 @@ const Login = () => {
                     {/* Register */}
                     <div className="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4">
                         <div className="w-px-400 mx-auto">
-                            {/* Logo */}
+                            {/* Logo 12*/}
                             <div className="app-brand mb-5">
                                 {/* <a href="index-2.html" className="app-brand-link gap-2">
                                     <span className="app-brand-text demo text-body fw-bolder">Safal</span>
