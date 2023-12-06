@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "./static/css/main.2459bf3c.css",
+    "main.js": "./static/js/main.000e8aa3.js",
+    "static/js/787.18d2f7a1.chunk.js": "./static/js/787.18d2f7a1.chunk.js",
+    "static/media/flourlogo.png": "./static/media/flourlogo.ba100f8e8e07aaf215bb.png",
+    "static/media/mssquarelogo.png": "./static/media/mssquarelogo.026e8bdc3401b65d21e0.png",
+    "index.html": "./index.html",
+    "main.2459bf3c.css.map": "./static/css/main.2459bf3c.css.map",
+    "main.000e8aa3.js.map": "./static/js/main.000e8aa3.js.map",
+    "787.18d2f7a1.chunk.js.map": "./static/js/787.18d2f7a1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2459bf3c.css",
+    "static/js/main.000e8aa3.js"
+  ]
+}
