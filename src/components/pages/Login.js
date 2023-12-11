@@ -5,23 +5,27 @@ import { baseUrl } from "./BaseUrl";
 
 function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [validator, setValidator] = useState(false);
 
   const isLogin =()=>{
+    if(email!==""&password!==""){
     const item={
-      username:username,
+      email:email,
       password:password
     }
-    axios.post(baseUrl + "login",item).then((res)=>{
-      if(res.data.type==="admin"){
+    axios.post("http://54.252.242.121:5000/admin/signin",item).then((res)=>{
+      if(res.data.status){
+        localStorage.setItem("logincheck","check")
        navigate("/dashboard")
-      }else if(res.data.type==="party"){
-        alert("party")
-      }else{
+      }
+      else{
         alert(res.data.message)
       }
-    })
+    })}else{
+      setValidator(true)
+    }
     
     
   }
@@ -50,13 +54,16 @@ function Login() {
                   Username
                 </label>
                 <input
-                  onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   type="text"
-                  className="form-control glass border-black"
+                  className="form-control glass"
                   id="email"
                   name="email-username"
                   placeholder="Enter your email or username"
                   autofocus
+
+                  style={{border:email===""&validator===true? "1px solid red":"1px solid black"}}
                 />
               </div>
               <div className="mb-3 form-password-toggle">
@@ -67,22 +74,25 @@ function Login() {
                 </div>
                 <div className="input-group input-group-merge">
                   <input
+                  type="password"
+                  value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     id="password"
-                    className="form-control glass passwordinp border-black"
+                    className="form-control glass passwordinp"
                     name="password"
                     placeholder="Password"
                     aria-describedby="password"
+                    style={{border:password===""&validator===true? "1px solid red":"1px solid black"}}
                   />
 
-                  <span  className="input-group-text cursor-pointer glass border-black">
+                  <span  style={{border:password===""&validator===true? "1px solid red":"1px solid black"}}  className="input-group-text cursor-pointer glass">
                     <i className="bx bx-show" />
                   </span>
                 </div>
               </div>
               <div className="mb-3"></div>
               <button
-                onClick={() =>navigate("/dashboard")}
+                onClick={() =>isLogin()}
                 className="btn btn-outline-light w-100 border-black text-black"
               >
                 Login

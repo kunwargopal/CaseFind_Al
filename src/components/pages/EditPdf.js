@@ -5,11 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { baseUrl } from "./BaseUrl";
 import storage from "./Firebase";
 
-import { hasPermission } from "./HashPermission";
 
 function Home() {
 
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    const logincheck = localStorage.getItem("logincheck")
+    if(logincheck!=="check"){
+      navigate("/")
+    }
+  },[])
   const getLocalPdf = localStorage.getItem("pdfData")
   const parsePdf =getLocalPdf?JSON.parse(getLocalPdf):[]
   const [postData, setPostData] = useState(parsePdf);
@@ -26,8 +32,18 @@ function Home() {
     })
   };
 
+
+  const editTopic=(x,y)=>{
+    axios.put("http://54.252.242.121:5000/pdf/update-topic/"+x+"/topic/"+y,postData).then(()=>{
+      alert("hii")
+    })
+  }
+
+  const topicId = postData.topic[0]._id
   return (
     <div>
+{JSON.stringify(postData)}
+
       <div className="layout-wrapper layout-content-navbar">
         <div className="layout-container">
           <Sidebar />
@@ -60,7 +76,7 @@ function Home() {
                         </div>
                         <div className="col-8">
                           <input
-                          value={postData.topic}
+                          value={postData.topic[0].topic}
                             onChange={(e) =>
                               setPostData({ ...postData, topic: e.target.value })
                             }
@@ -77,7 +93,7 @@ function Home() {
                         <div className="col-8">
                           <input
                           type="file"
-                          // value={postData?.pdf}
+                          // value={postData?.topic[0].pdf}
                             onChange={(e) =>
                               setPostData({ ...postData, pdf: e.target.files[0] })
                             
@@ -94,7 +110,7 @@ function Home() {
                 <div className="container-fluid d-flex justify-content-center p-4">
                 <button
                   style={{backgroundColor:"rgb(221 186 163)", color:"white"}}
-                    onClick={() => editPdf()}
+                    onClick={() => editTopic(postData._id, postData.topic[0]._id)}
                     className="btn btn"
                   >
                     Update

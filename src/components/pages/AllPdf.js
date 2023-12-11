@@ -4,8 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  
   const navigate = useNavigate();
+  useEffect(()=>{
+    const logincheck = localStorage.getItem("logincheck")
+    if(logincheck!=="check"){
+      navigate("/")
+    }
+  },[])
+
   const [pdfList, setPdfList] = useState([]);
 
 
@@ -20,12 +26,19 @@ function Home() {
 
 
   const dltPDF=(x)=>{
+    if(window.confirm("Are you sure")){
     axios.delete("http://54.252.242.121:5000/pdf/delete-pdf/"+x).then(()=>{ getPdf();})
+  }}
+
+
+  const dltTopic=(x,y)=>{
+    axios.delete("http://54.252.242.121:5000/pdf/delete-topic/"+x+"/topic/"+y).then(()=>{
+     if(window.confirm("Are you sure")){
+      getPdf()}
+    })
   }
 
-  const edit=(x)=>{
-    axios.put("http://54.252.242.121:5000/pdf/update-pdf-upload/"+x,).then(()=>{ getPdf();})
-  }
+ 
 
 
   return (
@@ -65,15 +78,12 @@ function Home() {
                           <th style={{ color: "white",fontWeight:"bold" }} scope="col">
                             Sr No.
                           </th>
-                          <th style={{ color: "white",fontWeight:"bold" }} scope="col">
-                            Subject
-                          </th>
+                        
                           <th style={{ color: "white",fontWeight:"bold" }} scope="col">
                             Topic
                           </th>
-                          <th style={{ color: "white",fontWeight:"bold" }} scope="col">
-                            PDF
-                          </th>
+                        
+                     
                         
                           <th style={{ color: "white",fontWeight:"bold" }} scope="col">
                             Action
@@ -82,24 +92,27 @@ function Home() {
                       </thead>
                       <tbody>
                     {pdfList.map((i,n)=>
+                    <>
+                     <button className="btn btn mt-3" style={{ backgroundColor: "rgb(165 206 210)", minWidth:"200px"}}>{i.subject}</button>
+                     {i.topic.map((a,b)=>
                           <tr>
-                            <td>{n + 1}</td>
-                            <td>{i.subject}</td>
-                            <td>{i.topic}</td>
-                            <td>{i.pdf}</td>
+             
+                            <td>{b + 1}</td>
+                            <td>{a.topic}</td>
+                      
                             <td>
                            { <button className="btn btn-secondary text-white">
-                          <a style={{color:"white"}}  target="_blank" href={`http://54.252.242.121:5000/pdf/${i.pdf}`} download><i className="fa fa-download"></i></a>
+                          <a style={{color:"white"}}  target="_blank" href={`http://54.252.242.121:5000/pdf/${a.pdf}`} download><i className="fa fa-download"></i></a>
                           </button>}  &nbsp;
                           
                               <button onClick={()=>{localStorage.setItem("pdfData", JSON.stringify(i)); navigate("/EditPdf")}} style={{ backgroundColor: "rgb(165 206 210)"}} className="btn btn">
                               <i className="fa fa-edit"></i></button>
                               &nbsp;
-                              <button onClick={()=>dltPDF(i._id)} style={{ backgroundColor: "rgb(221 186 163)"}} className="btn btn">
+                              <button onClick={()=>dltTopic(i._id,a._id)} style={{ backgroundColor: "rgb(221 186 163)"}} className="btn btn">
                               <i className="fa fa-trash"></i></button>
                               </td>
                       
-                          </tr>
+                          </tr>)}</>
                      )}
                       </tbody>
                     </table>

@@ -7,6 +7,13 @@ function Sidebar() {
   const navigate=useNavigate()
   const [showDiv, setShowDiv]=useState("Master","Purchase")
   const [showSide, setShowSide]=useState(false)
+
+  useEffect(()=>{
+    const logincheck = localStorage.getItem("logincheck")
+    if(logincheck!=="check"){
+      navigate("/")
+    }
+  },[])
   return (<>
       <aside
         id="layout-menu"
@@ -34,7 +41,7 @@ function Sidebar() {
                 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
                 &nbsp; &nbsp; &nbsp;
                 <i
-                  className="fa fa-long-arrow-left"
+                  className="fa fa-long-arrow-left "
                 />
               </a>
             </li>
@@ -55,6 +62,12 @@ function Sidebar() {
           <a onClick={() => navigate("/AllUsers")} className="menu-link" style={{ cursor: "pointer" }}>
             <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
             <div >All User</div>
+          </a>
+        </li>
+        <li className="menu-item">
+          <a onClick={() =>{ localStorage.removeItem("logincheck");navigate("/")}} className="menu-link" style={{ cursor: "pointer" }}>
+          <i style={{fontSize:17}} class="menu-icon tf-icons  fa fa-sign-out" aria-hidden="true"></i>
+            <div ><b>Logout</b></div>
           </a>
         </li>
       
@@ -84,24 +97,12 @@ function Sidebar() {
         >
           <div style={{ padding: 5, marginLeft: -10 }}>
             {" "}
-            <img
+            {/* <img
               style={{ width: 150, height: "auto", marginLeft: 10 }}
               src={mssquarelogo}
-            />
+            /> */}
           </div>
-          <span
-            onClick={() => setShowSide(false)}
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              cursor: "pointer",
-              position: "absolute",
-              right: 15,
-              top: 10,
-            }}
-          >
-            X
-          </span>
+         
 
           <div className="menu-inner-shadow" />
           <ul
@@ -122,7 +123,7 @@ function Sidebar() {
                   &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
                   &nbsp; &nbsp; &nbsp;
                   <i
-                    className="fa fa-long-arrow-left"
+                    className="fa fa-long-arrow-left fa-2x"
                     onClick={() => navigate(-1)}
                   />
                 </a>
@@ -139,175 +140,24 @@ function Sidebar() {
               }}
             >
               
-                <li
-                  className="menu-header small text-uppercase"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems:"center",
-                  
-                   
-                  }}
-                  onClick={() =>
-                    setShowDiv(showDiv === "Purchase" ? "" : "Purchase")
-                  }
-                >
-                  <span className="menu-header-text">HRM</span>
-                  {showDiv !== "Purchase" ? (
-                    <i class="fa fa-caret-right"></i>
-                  ) : (
-                    <i class="fa fa-caret-down"></i>
-                  )}
-                </li><br />
-
-              <div
-                style={{
-                  height:
-                    showDiv === "Purchase"?
-                        "17rem"
-                      : "0rem",
-                  transition: "0.6s",
-                  overflow: "hidden",
-                }}
-              >
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/EmployeeTable")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>Add Employees</div>
-                    </a>
-                  </li><br />
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/Attendance")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>Attendance</div>
-                    </a>
-                  </li><br />
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/EmpInOut")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>In-Out</div>
-                    </a>
-                  </li><br />
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/AttendanceRecord")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>Attendance Record</div>
-                    </a>
-                  </li><br />
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/Document")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>Monthly Report</div>
-                    </a>
-                  </li><br />
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/AttDelete")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>Attendance Delete</div>
-                    </a>
-                  </li><br />
-                
-              </div>
-
-              <li
-                  className="menu-header small text-uppercase"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems:"center",
-            
-                   
-                  }}
-                  onClick={() =>
-                    setShowDiv(showDiv === "Student" ? "" : "Student")
-                  }
-                >
-                  <span className="menu-header-text">Student</span>
-                  {showDiv !== "Purchase" ? (
-                    <i class="fa fa-caret-right"></i>
-                  ) : (
-                    <i class="fa fa-caret-down"></i>
-                  )}
-                </li><br />
-
-              <div
-                style={{
-                  height:
-                    showDiv === "Student"?
-                        "17rem"
-                      : "0rem",
-                  transition: "0.6s",
-                  overflow: "hidden",
-                }}
-              >
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/Syllabus")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>Category</div>
-                    </a>
-                  </li><br />
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/Topic")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>Topic</div>
-                    </a>
-                  </li><br />
-                  <li className="menu-item">
-                    <a
-                      href
-                      onClick={() => navigate("/Student")}
-                      className="menu-link"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="menu-icon tf-icons bx bx-check-shield" />
-                      <div>Student</div>
-                    </a>
-                  </li><br />
-             
-                
-              </div>
+              <li className="menu-item">
+          <a onClick={() => navigate("/AllPdf")} className="menu-link" style={{ cursor: "pointer" }}>
+            <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
+            <div>PDF</div>
+          </a>
+        </li><br />
+        <li className="menu-item">
+          <a onClick={() => navigate("/AllUsers")} className="menu-link" style={{ cursor: "pointer" }}>
+            <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
+            <div >All User</div>
+          </a>
+        </li><br />
+        <li className="menu-item">
+          <a onClick={() =>{ localStorage.removeItem("logincheck");navigate("/")}} className="menu-link" style={{ cursor: "pointer" }}>
+          <i style={{fontSize:17}} class="menu-icon tf-icons  fa fa-sign-out" aria-hidden="true"></i>
+            <div ><b>Logout</b></div>
+          </a>
+        </li>
               
             </div>
           </ul>
