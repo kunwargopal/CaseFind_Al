@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -116,7 +120,7 @@ align-items: center;
   background-color: rgb(221 186 163);
 }
 .glass{
-  background-color: transparent !important;
+  background-color: "rgb(165 206 210)" !important;
   border: 1px dotted white;
   padding-inline: 5% !important;
   backdrop-filter: blur(7px);

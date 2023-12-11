@@ -33,7 +33,7 @@ function Login() {
   return (
     <>
       <div className="backgroundbg d-flex justify-content-center align-items-center">
-        <div className="login glass rounded">
+        <div className="login glass rounded"  style={{backgroundColor:"rgb(165 206 210)"}}>
           <div id="my-node">
             {/* Logo */}
             <div className="app-brand mb-5">

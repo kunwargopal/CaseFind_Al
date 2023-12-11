@@ -33,10 +33,9 @@ function Home() {
 
   const dltTopic=(x,y)=>{
     axios.delete("http://54.252.242.121:5000/pdf/delete-topic/"+x+"/topic/"+y).then(()=>{
-     if(window.confirm("Are you sure")){
       getPdf()}
-    })
-  }
+    )}
+  
 
  
 
@@ -80,6 +79,9 @@ function Home() {
                           </th>
                         
                           <th style={{ color: "white",fontWeight:"bold" }} scope="col">
+                            Subject
+                          </th>
+                          <th style={{ color: "white",fontWeight:"bold" }} scope="col">
                             Topic
                           </th>
                         
@@ -93,11 +95,12 @@ function Home() {
                       <tbody>
                     {pdfList.map((i,n)=>
                     <>
-                     <button className="btn btn mt-3" style={{ backgroundColor: "rgb(165 206 210)", minWidth:"200px"}}>{i.subject}</button>
+                     
                      {i.topic.map((a,b)=>
                           <tr>
              
-                            <td>{b + 1}</td>
+                            <td>{n + 1}</td>
+                            <td>{i.subject}</td>
                             <td>{a.topic}</td>
                       
                             <td>

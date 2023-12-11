@@ -35,8 +35,8 @@ function Home() {
       axios
         .post("http://54.252.242.121:5000/pdf/save-topic", formdata)
         .then(() => {
-          // navigate("/AllPdf");
           setPdfValidator(false);
+          navigate("/AllPdf")
         });
     } else {
       setPdfValidator(true);
@@ -54,7 +54,10 @@ function Home() {
     };
     axios
       .post("http://54.252.242.121:5000/pdf/upload-pdf", item)
-      .then(() => getSubject());
+      .then(() => {
+        setSubject("")
+        alert("Subject Add Successfully")
+        getSubject()});
   }else {
     setSubjectValidator(true)
   }};
