@@ -102,7 +102,7 @@ function Home() {
                       
                             <td>
                            { <button className="btn btn-secondary text-white">
-                          <a style={{color:"white"}}  target="_blank" href={`http://54.252.242.121:5000/pdf/${a.pdf}`} download><i className="fa fa-download"></i></a>
+                          <a style={{color:"white"}}  target="_blank" href={a.pdf} download><i className="fa fa-download"></i></a>
                           </button>}  &nbsp;
                           
                               <button onClick={()=>{localStorage.setItem("pdfData", JSON.stringify(i)); navigate("/EditPdf")}} style={{ backgroundColor: "rgb(165 206 210)"}} className="btn btn">
